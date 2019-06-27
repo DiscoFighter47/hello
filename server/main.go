@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"time"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -11,6 +12,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	if name == "hello" {
 		name = "world"
 	}
+	time.Sleep(10 * time.Second)
 	w.Write([]byte("hello " + name + "!"))
 }
 
