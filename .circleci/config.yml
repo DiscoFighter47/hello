@@ -1,16 +1,23 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+executors:
+  docker-publisher:
     environment:
-      IMAGE_NAME: discofighter47/hello-server
+        IMAGE_NAME: discofighter47/hello-server
     docker:
       - image: circleci/buildpack-deps:stretch
+jobs:
+  build:
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: build docker image
-          command: cd server && docker build -t $IMAGE_NAME:latest .
+          command: |
+            cd server
+            docker build -t $IMAGE_NAME:latest .
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
 
 workflows:
   version: 2
