@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    environment:
+      IMAGE_NAME: discofighter47/hello-server
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build docker image
+          command: cd server && docker build -t $IMAGE_NAME:latest .
+
+workflows:
+  version: 2
+  build_master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
