@@ -6,19 +6,24 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gojektech/heimdall/httpclient"
+	"github.com/gojektech/heimdall/hystrix"
 )
 
 const path = "/hello/zahid"
-const maxReq = 5000
+const maxReq = 10000
 
 var counter = 0
 var lock sync.Mutex
-var client *httpclient.Client
+var client *hystrix.Client
 
 func init() {
-	timeout := 15 * time.Second
-	client = httpclient.NewClient(httpclient.WithHTTPTimeout(timeout))
+	client = hystrix.NewClient(
+		hystrix.WithHTTPTimeout(10*time.Second),
+		hystrix.WithCommandName("hello server request"),
+		hystrix.WithHystrixTimeout(10*time.Second),
+		hystrix.WithMaxConcurrentRequests(1000),
+		hystrix.WithErrorPercentThreshold(20),
+	)
 }
 
 func print(val int) {
