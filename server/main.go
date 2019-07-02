@@ -12,6 +12,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	if name == "hello" {
 		name = "world"
 	}
+	log.Println("request from ", name)
 	time.Sleep(5 * time.Second)
 	w.Write([]byte("hello " + name + "!"))
 }
