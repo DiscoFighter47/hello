@@ -15,9 +15,9 @@ jobs:
             IMAGE: hello-server
           command: |
             cd server
-            docker build -t "$DOCKERHUB_USERNAME"/$"IMAGE":latest .
+            docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push "$DOCKERHUB_USERNAME"/$"IMAGE":latest
+            docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
   
   build-frontend:
     executor: docker-publisher
