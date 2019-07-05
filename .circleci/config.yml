@@ -11,11 +11,13 @@ jobs:
       - setup_remote_docker
       - run:
           name: build docker image
+          environment:
+            IMAGE: hello-server
           command: |
             cd server
-            docker build -t "$DOCKERHUB_USERNAME"/hello-server:latest .
+            docker build -t "$DOCKERHUB_USERNAME"/$"IMAGE":latest .
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push "$DOCKERHUB_USERNAME"/hello-server:latest
+            docker push "$DOCKERHUB_USERNAME"/$"IMAGE":latest
   
   build-frontend:
     executor: docker-publisher
@@ -24,11 +26,13 @@ jobs:
       - setup_remote_docker
       - run:
           name: build docker image
+          environment:
+            IMAGE: hello-frontend
           command: |
             cd server
-            docker build -t "$DOCKERHUB_USERNAME"/hello-frontend:latest .
+            docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push "$DOCKERHUB_USERNAME"/hello-frontend:latest
+            docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
 
 workflows:
   version: 2
