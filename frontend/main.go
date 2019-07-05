@@ -11,7 +11,7 @@ import (
 	"github.com/gojektech/heimdall/hystrix"
 )
 
-const url = "http://10.83.4.216/hello/"
+const url = "http://10.83.6.6/hello/"
 
 var tPath = "./views/hello.html"
 
