@@ -25,7 +25,8 @@ jobs:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
       run: |
+        commit=$(git rev-parse HEAD)
         cd server
         docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
         echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
+        docker push "$DOCKERHUB_USERNAME"/"$IMAGE":$commit
