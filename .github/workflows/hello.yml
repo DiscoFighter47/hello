@@ -20,11 +20,6 @@ jobs:
         go get -v -t -d ./...
 
     - name: build & push
-      with:
-        image: hello-server
-        user: ${{ secrets.DOCKERHUB_USERNAME }}
-        pass: ${{ secrets.DOCKERHUB_PASS }}
-
       run: |
         cd server
-        go build .
+        go build -v .
