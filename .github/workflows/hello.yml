@@ -26,6 +26,7 @@ jobs:
         DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
 
       run: |
+        cd server
         docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
         echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
