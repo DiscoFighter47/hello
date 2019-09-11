@@ -22,8 +22,8 @@ jobs:
     - name: build & push
       with:
         IMAGE: hello-server
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+        # DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        # DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
 
       run: |
         cd server
