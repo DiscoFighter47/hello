@@ -20,4 +20,7 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build
-      run: go build -v .
+      run: |
+        cd server
+        go build -v .
+
