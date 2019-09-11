@@ -21,13 +21,12 @@ jobs:
 
     - name: build & push
       with:
-        IMAGE: hello-server
-        # DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        # DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+        image: hello-server
+        user: ${{ secrets.DOCKERHUB_USERNAME }}
+        pass: ${{ secrets.DOCKERHUB_PASS }}
 
       run: |
         cd server
-        docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
-        echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
-
+        docker build -t "$user"/"$image":latest .
+        echo "$pass" | docker login -u "$user" --password-stdin
+        docker push "$user"/"$pass":latest
