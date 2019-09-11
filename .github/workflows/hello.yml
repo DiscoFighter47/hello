@@ -19,8 +19,14 @@ jobs:
       run: |
         go get -v -t -d ./...
 
-    - name: Build
+    - name: build & push
+      with:
+        IMAGE: hello-server
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+
       run: |
-        cd server
-        go build -v .
+        docker build -t "$DOCKERHUB_USERNAME"/"$IMAGE":latest .
+        echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        docker push "$DOCKERHUB_USERNAME"/"$IMAGE":latest
 
