@@ -27,6 +27,7 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
 
     - name: set up Go 1.12
