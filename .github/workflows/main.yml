@@ -20,9 +20,8 @@ jobs:
         go get -v -t -d ./...
 
     - name: build & push
-      with:
+      env:
         IMAGE: hello-server
-
       run: |
         cd server
         go build -v .
