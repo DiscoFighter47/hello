@@ -22,6 +22,7 @@ jobs:
     - name: build & push
       with:
         IMAGE: hello-server
+
       run: |
         cd server
         go build -v .
