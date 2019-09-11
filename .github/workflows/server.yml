@@ -3,11 +3,11 @@ on: [push]
 jobs:
 
   test:
-    name: test
+    name: Test
     runs-on: ubuntu-latest
     steps:
 
-    - name: set up Go 1.12
+    - name: Set up Go 1.12
       uses: actions/setup-go@v1
       with:
         go-version: 1.12
@@ -15,34 +15,34 @@ jobs:
     - name: check out code into the Go module directory
       uses: actions/checkout@v1
 
-    - name: get dependencies
+    - name: Get dependencies
       run: |
         go get -v -t -d ./...
 
-    - name: test
+    - name: Test
       run: |
         cd server
         go test -cover  ./...
 
   build:
-    name: build
+    name: Build
     runs-on: ubuntu-latest
     needs: [test]
     steps:
 
-    - name: set up Go 1.12
+    - name: Set up Go 1.12
       uses: actions/setup-go@v1
       with:
         go-version: 1.12
 
-    - name: check out code into the Go module directory
+    - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
-    - name: get dependencies
+    - name: Get dependencies
       run: |
         go get -v -t -d ./...
 
-    - name: build & push
+    - name: Build & Push
       env:
         IMAGE: hello-server
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
